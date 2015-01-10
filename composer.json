@@ -1,0 +1,25 @@
+{
+    "name": "loop8/yii2-l8-actioncolumn",
+    "description": "Adds functions to get default button markup",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","grid","actioncolumn"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Juha-Matti Aho",
+            "email": "jussi@loop8.fi"
+        },
+        {
+            "name": "Stefan Guse",
+            "email": "stefan@loop8.fi"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "loop8\\l8actioncolumn\\": ""
+        }
+    }
+}
