@@ -8,9 +8,9 @@
 namespace loop8\l8actioncolumn;
 
 use Yii;
-use Closure;
+//use Closure;
 use yii\helpers\Html;
-use yii\helpers\Url;
+//use yii\helpers\Url;
 
 /**
  * Extends the YII2 Action Column
@@ -20,7 +20,7 @@ class L8ActionColumn extends \yii\grid\ActionColumn
     /**
      * Return the default view button
      */
-    public static function viewButton($url, $model, $key, $visible)
+    public static function viewButton($url, $model, $key, $visible = true)
     {
         if (!$visible)
             return '';
@@ -34,7 +34,7 @@ class L8ActionColumn extends \yii\grid\ActionColumn
     /**
      * Return the default update button
      */
-    public static function updateButton($url, $model, $key, $visible)
+    public static function updateButton($url, $model, $key, $visible = true)
     {
         if (!$visible)
             return '';
@@ -48,7 +48,7 @@ class L8ActionColumn extends \yii\grid\ActionColumn
     /**
      * Return the default delete button
      */
-    public static function deleteButton($url, $model, $key, $visible)
+    public static function deleteButton($url, $model, $key, $visible = true)
     {
         if (!$visible)
             return '';

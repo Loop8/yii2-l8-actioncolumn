@@ -21,11 +21,49 @@ or add
 
 to the require section of your `composer.json` file.
 
-
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+This extension adds the following static functions to the ActionColumn:
 
-```php
-<?= \loop8\l8actioncolumn\AutoloadExample::widget(); ?>```
+- L8ActionColumn::viewButton($url, $model, $key, $visible)
+- L8ActionColumn::updateButton($url, $model, $key, $visible)
+- L8ActionColumn::deleteButton($url, $model, $key, $visible)
+
+These functions can be used to render or hide the default `ActionColumn` buttons depending on the `visible` flag. This saved you from having to rewrite the default button markup in every `GridView` widget.
+
+Once the extension is installed, simply use it in your code by:
+
+```
+<?php
+use loop8\l8actioncolumn\L8ActionColumn;
+?>
+```
+
+and using it in your view files with GridView:
+
+```
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            // column definitions
+
+            [
+                'class' => L8ActionColumn::className(),
+                //'template' => '{view} {update} {delete}', // you can leave out the buttons which you won't need
+                'buttons' => [
+                    'view' => function($url, $model, $key) {
+                        return L8ActionColumn::viewButton($url, $model, $key, !empty(Yii::$app->user->identity)); // check that the user is authenticated
+                    },
+                    'update' => function($url, $model, $key) {
+                        return L8ActionColumn::updateButton($url, $model, $key, !empty(Yii::$app->user->identity)); // check that the user is authenticated
+                    },
+                    'delete' => function($url, $model, $key) {
+                        return L8ActionColumn::deleteButton($url, $model, $key, !empty(Yii::$app->user->identity)); // check that the user is authenticated
+                    }
+                ]
+            ],
+        ],
+    ]); ?>
+```
