@@ -58,4 +58,25 @@ class L8ActionColumn extends \yii\grid\ActionColumn
             'data-pjax' => '0',
         ]);
     }
+
+    /**
+     * Return the default delete button for ajax
+     */
+    public static function ajaxDeleteButton($url, $model, $key, $visible = true, $additionalOptions = [])
+    {
+        if (!$visible)
+            return '';
+
+        $options = [
+            'title' => Yii::t('yii', 'Delete'),
+            'data-url' => $url,
+            'class' => 'l8ajax-delete',
+        ];
+
+        if (!empty($additionalOptions)) {
+            $options = array_merge($options, $additionalOptions);
+        }
+
+        return Html::a('<span class="glyphicon glyphicon-trash"></span>', '#', $options);
+    }
 }
