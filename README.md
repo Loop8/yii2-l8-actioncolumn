@@ -26,13 +26,13 @@ Usage
 
 This extension adds the following static functions to the ActionColumn:
 
-- L8ActionColumn::viewButton($url, $model, $key, $visible)
-- L8ActionColumn::updateButton($url, $model, $key, $visible)
-- L8ActionColumn::deleteButton($url, $model, $key, $visible)
-- L8ActionColumn::deleteButton($url, $model, $key, $visible, $options)
+- L8ActionColumn::viewButton($url, $model, $key, $visible = true)
+- L8ActionColumn::updateButton($url, $model, $key, $visible = true)
+- L8ActionColumn::deleteButton($url, $model, $key, $visible = true)
+- L8ActionColumn::ajaxDeleteButton($url, $model, $key, $visible = true, $options = [])
 
 These functions can be used to render or hide the default `ActionColumn` buttons depending on the `visible` flag. This saved you from having to rewrite the default button markup in every `GridView` widget.
-The `L8ActionColumn::deleteButton` function adds an `options` array which can be used to pass data to the ajax call.
+The `L8ActionColumn::ajaxDeleteButton` function adds an `options` array which can be used to pass data to the ajax call and the button will have a CSS class name `l8ajax-delete` which you can use for event binding.
 
 Once the extension is installed, simply use it in your code by:
 
