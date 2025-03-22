@@ -17,14 +17,36 @@ use yii\helpers\Html;
 class L8ActionColumn extends ActionColumn
 {
     /**
-     * Return the default view button
-     * @param $url
-     * @param $model
-     * @param $key
-     * @param bool $visible
-     * @return string
+     * @var bool Flag to track if the AjaxDeleteAssetBundle has been registered
      */
-    public static function viewButton($url, $model, $key, $visible = true)
+    protected static $ajaxDeleteAssetRegistered = false;
+    
+    /**
+     * @inheritdoc
+     */
+    public function init(): void
+    {
+        parent::init();
+        
+        if (strpos($this->template, '{delete}') !== false) {
+            $this->registerAjaxDeleteAsset();
+        }
+    }
+    
+    protected function registerAjaxDeleteAsset(): void
+    {
+        if (self::$ajaxDeleteAssetRegistered) {
+            return;
+        }
+        
+        $assetClass = 'app\assets\AjaxDeleteAssetBundle';
+        if (class_exists($assetClass)) {
+            $assetClass::register(Yii::$app->view);
+            self::$ajaxDeleteAssetRegistered = true;
+        }
+    }
+
+    public static function viewButton(string $url, object $model, mixed $key, bool $visible = true): string
     {
         if (!$visible)
             return '';
@@ -35,15 +57,7 @@ class L8ActionColumn extends ActionColumn
         ]);
     }
 
-    /**
-     * Return the default update button
-     * @param $url
-     * @param $model
-     * @param $key
-     * @param bool $visible
-     * @return string
-     */
-    public static function updateButton($url, $model, $key, $visible = true)
+    public static function updateButton(string $url, object $model, mixed $key, bool $visible = true): string
     {
         if (!$visible)
             return '';
@@ -54,15 +68,7 @@ class L8ActionColumn extends ActionColumn
         ]);
     }
 
-    /**
-     * Return the default delete button
-     * @param $url
-     * @param $model
-     * @param $key
-     * @param bool $visible
-     * @return string
-     */
-    public static function deleteButton($url, $model, $key, $visible = true)
+    public static function deleteButton(string $url, object $model, mixed $key, bool $visible = true): string
     {
         if (!$visible)
             return '';
@@ -73,19 +79,13 @@ class L8ActionColumn extends ActionColumn
         ]);
     }
 
-    /**
-     * Return the default delete button for ajax
-     * @param $url
-     * @param $model
-     * @param $key
-     * @param bool $visible
-     * @param array $additionalOptions
-     * @return string
-     */
-    public static function ajaxDeleteButton($url, $model, $key, $visible = true, $additionalOptions = [])
+    public static function ajaxDeleteButton(string $url, object $model, mixed $key, bool $visible = true, array $additionalOptions = []): string
     {
         if (!$visible)
             return '';
+
+        self::registerAjaxDeleteAssetStatic();
+        
         $options = [
             'title' => Yii::t('yii', 'Delete'),
             'data-url' => $url,
@@ -98,17 +98,21 @@ class L8ActionColumn extends ActionColumn
 
         return Html::a('<span class="glyphicon glyphicon-trash"></span>', '#', $options);
     }
+    
+    protected static function registerAjaxDeleteAssetStatic(): void
+    {
+        if (self::$ajaxDeleteAssetRegistered) {
+            return;
+        }
+        
+        $assetClass = 'app\assets\AjaxDeleteAssetBundle';
+        if (class_exists($assetClass)) {
+            $assetClass::register(Yii::$app->view);
+            self::$ajaxDeleteAssetRegistered = true;
+        }
+    }
 
-    /**
-     * Return the default approve button for ajax
-     * @param $url
-     * @param $model
-     * @param $key
-     * @param bool $visible
-     * @param array $additionalOptions
-     * @return string
-     */
-    public static function ajaxApproveButton($url, $model, $key, $visible = true, $additionalOptions = [])
+    public static function ajaxApproveButton(string $url, object $model, mixed $key, bool $visible = true, array $additionalOptions = []): string
     {
         if (!$visible)
             return '';
@@ -125,16 +129,7 @@ class L8ActionColumn extends ActionColumn
         return Html::a('<span class="glyphicon glyphicon-thumbs-up"></span>', '#', $options);
     }
 
-    /**
-     * Return the default revoke approval button for ajax
-     * @param $url
-     * @param $model
-     * @param $key
-     * @param bool $visible
-     * @param array $additionalOptions
-     * @return string
-     */
-    public static function ajaxRevokeApprovalButton($url, $model, $key, $visible = true, $additionalOptions = [])
+    public static function ajaxRevokeApprovalButton(string $url, object $model, mixed $key, bool $visible = true, array $additionalOptions = []): string
     {
         if (!$visible)
             return '';
