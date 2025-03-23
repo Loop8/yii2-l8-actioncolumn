@@ -46,7 +46,7 @@ class L8ActionColumn extends ActionColumn
         }
     }
 
-    public static function viewButton(string $url, object $model, mixed $key, bool $visible = true): string
+    public static function viewButton(string $url, object $model, $key, bool $visible = true): string
     {
         if (!$visible)
             return '';
@@ -57,7 +57,7 @@ class L8ActionColumn extends ActionColumn
         ]);
     }
 
-    public static function updateButton(string $url, object $model, mixed $key, bool $visible = true): string
+    public static function updateButton(string $url, object $model, $key, bool $visible = true): string
     {
         if (!$visible)
             return '';
@@ -68,7 +68,7 @@ class L8ActionColumn extends ActionColumn
         ]);
     }
 
-    public static function deleteButton(string $url, object $model, mixed $key, bool $visible = true): string
+    public static function deleteButton(string $url, object $model, $key, bool $visible = true): string
     {
         if (!$visible)
             return '';
@@ -79,7 +79,7 @@ class L8ActionColumn extends ActionColumn
         ]);
     }
 
-    public static function ajaxDeleteButton(string $url, object $model, mixed $key, bool $visible = true, array $additionalOptions = []): string
+    public static function ajaxDeleteButton(string $url, object $model, $key, bool $visible = true, array $additionalOptions = []): string
     {
         if (!$visible)
             return '';
@@ -112,7 +112,7 @@ class L8ActionColumn extends ActionColumn
         }
     }
 
-    public static function ajaxApproveButton(string $url, object $model, mixed $key, bool $visible = true, array $additionalOptions = []): string
+    public static function ajaxApproveButton(string $url, object $model, $key, bool $visible = true, array $additionalOptions = []): string
     {
         if (!$visible)
             return '';
@@ -129,7 +129,7 @@ class L8ActionColumn extends ActionColumn
         return Html::a('<span class="glyphicon glyphicon-thumbs-up"></span>', '#', $options);
     }
 
-    public static function ajaxRevokeApprovalButton(string $url, object $model, mixed $key, bool $visible = true, array $additionalOptions = []): string
+    public static function ajaxRevokeApprovalButton(string $url, object $model, $key, bool $visible = true, array $additionalOptions = []): string
     {
         if (!$visible)
             return '';
